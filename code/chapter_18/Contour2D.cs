@@ -175,4 +175,42 @@ namespace Coding4Engineers.Chapter18
         readonly float m_fCosPhi;  // Precomputed cos(phi)
         readonly float m_fSinPhi;  // Precomputed sin(phi)
     }
+
+    public class Rectangle : INormalizedContour2d
+    {
+        public Rectangle(float fWidth, float fHeight) => (m_fWidth, m_fHeight) = (fWidth, fHeight);
+
+        public float fLength => 2 * (m_fWidth + m_fHeight);
+        
+        public void PtAtT(in float t, out Vector2 vecPt, out Vector2 vecNormal)
+        {
+            float perimeter = 2 * (m_fWidth + m_fHeight);
+            float distance = t * perimeter;
+            
+            if (distance < m_fWidth)
+            {
+                vecPt = new Vector2(distance, 0);
+                vecNormal = Vector2.UnitY;
+            }
+            else if (distance < m_fWidth + m_fHeight)
+            {
+                vecPt = new Vector2(m_fWidth, distance - m_fWidth);
+                vecNormal = Vector2.UnitX * -1;
+            }
+            else if (distance < 2 * m_fWidth + m_fHeight)
+            {
+                vecPt = new Vector2(2 * m_fWidth + m_fHeight - distance, m_fHeight);
+                vecNormal = Vector2.UnitY * -1;
+            }
+            else
+            {
+                vecPt = new Vector2(0, 2 * (m_fWidth + m_fHeight) - distance);
+                vecNormal = Vector2.UnitX;
+            }
+        }
+
+        readonly float m_fWidth;
+        readonly float m_fHeight;
+    }
+
 }

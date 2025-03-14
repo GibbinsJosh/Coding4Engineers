@@ -26,10 +26,10 @@ namespace Coding4Engineers.Chapter18
         {
             BaseCylinder oCyl = new(    LocalFrame.frmWorld, 
                                         new Circle(10), 
-                                        new Ellipse(20f,10f),
+                                        new Circle(05),
                                         20f);
 
-            oCyl.SetSurfaceModulation(new SurfaceModulationSineWaveUV(30,2), 1f);
+            oCyl.SetSurfaceModulation(new SurfaceModulationSineWaveUV(6, 1), 3f);
 
             Mesh msh = oCyl.mshConstruct();
 
